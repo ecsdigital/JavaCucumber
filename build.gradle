@@ -28,7 +28,7 @@ idea {
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.22'
     compile 'org.slf4j:slf4j-simple:1.7.22'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.+'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
     compile 'info.cukes:cucumber-java8:1.2.5'
     compile 'info.cukes:cucumber-junit:1.2.5'
 

@@ -28,7 +28,7 @@ public class SeleniumUtils {
                     return;
                 }
             } catch (NoSuchElementException e) {
-                LOGGER.info("NoSuchElementException thrown on attempt #{} of 5");
+                LOGGER.info("NoSuchElementException thrown on attempt #{} of 5", i);
             }
             try {
                 Thread.sleep(500);

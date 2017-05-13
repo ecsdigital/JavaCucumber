@@ -7,3 +7,8 @@ Feature: Demo capabilities of Selenium
     Given I've opened the google home page
     When I search for 'gherkin'
     Then there should be a result titled 'Pickled cucumber - Wikipedia'
+
+  Scenario: Apple SEO
+    Given I've opened the google home page
+    When I search for 'apple'
+    Then there should be a result titled 'Apple (United Kingdom)'

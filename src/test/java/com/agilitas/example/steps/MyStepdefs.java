@@ -1,7 +1,6 @@
 package com.agilitas.example.steps;
 
 import com.agilitas.example.SeleniumUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java8.En;
@@ -11,11 +10,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.Properties;
 
+import static java.lang.System.getProperties;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -28,7 +31,27 @@ public class MyStepdefs implements En {
 
     @Before
     public void setUpDriver() {
-        driver = new FirefoxDriver();
+        Properties props = getProperties();
+        String browser = System.getProperty("browser");
+        if(browser==null) {
+            LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
+            driver = new ChromeDriver();
+        } else {
+            switch (browser) {
+                case "IE":
+                    driver = new InternetExplorerDriver();
+                    break;
+                case "Chrome":
+                    driver = new ChromeDriver();
+                    break;
+                case "Firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                default:
+                    LOGGER.error("Sorry I don't know how to create a driver for your command line argument %s", browser);
+                    throw new NotImplementedException();
+            }
+        }
     }
     @After
     public void tearDownDriver() {
@@ -38,7 +61,10 @@ public class MyStepdefs implements En {
     }
 
     public MyStepdefs() {
-        Given("^I've opened the google home page$", () -> driver.get("https://www.google.com"));
+        Given("^I've opened the google home page$", () -> {
+            driver.get("https://www.google.com");
+            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[title='Search']"));
+        });
 
         When("^I search for '(.*)'$", (String searchTerm) -> {
             WebElement searchBox = driver.findElement(By.cssSelector("#lst-ib"));

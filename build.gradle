@@ -6,16 +6,25 @@
  * user guide available at https://docs.gradle.org/3.5/userguide/java_library_plugin.html
  */
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.owasp:dependency-check-gradle:3.3.1'
+    }
+}
+
 plugins {
     id "java-library"
     id "idea"
-    id "com.github.samueltbrown.cucumber" version "0.9"
+    id "com.commercehub.cucumber-jvm" version "0.14"
 }
+
+apply plugin: 'org.owasp.dependencycheck'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
@@ -26,16 +35,11 @@ idea {
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.22'
-    compile 'org.slf4j:slf4j-simple:1.7.22'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
-    compile 'info.cukes:cucumber-java8:1.2.5'
-    compile 'info.cukes:cucumber-junit:1.2.5'
-
-    // Declare the dependency for your favourite test framework you want to use in your tests.
-    // TestNG is also supported by the Gradle Test task. Just change the
-    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
-    // 'test.useTestNG()' to your build script.
-    compile 'junit:junit:4.12'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.14.0'
+    //compile 'io.cucumber:cucumber-java8:3.0.2'
+    //compile 'io.cucumber:cucumber-junit:3.0.2'
+    compile 'org.apache.logging.log4j:log4j-core:2.8.1'
 }
 

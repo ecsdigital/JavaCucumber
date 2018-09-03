@@ -4,21 +4,20 @@ import com.agilitas.example.SeleniumUtils;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java8.En;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
-import java.util.Properties;
 
-import static java.lang.System.getProperties;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -30,26 +29,26 @@ public class MyStepdefs implements En {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStepdefs.class);
 
     @Before
-    public void setUpDriver() {
-        Properties props = getProperties();
+    public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
+        ChromeOptions options = new ChromeOptions().addArguments("headless", "remote-debugging-port=9222");
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
         } else {
             switch (browser) {
                 case "IE":
                     driver = new InternetExplorerDriver();
                     break;
                 case "Chrome":
-                    driver = new ChromeDriver();
+                    driver = new ChromeDriver(options);
                     break;
                 case "Firefox":
                     driver = new FirefoxDriver();
                     break;
                 default:
                     LOGGER.error("Sorry I don't know how to create a driver for your command line argument %s", browser);
-                    throw new NotImplementedException();
+                    throw new Exception("Not yet implemented");
             }
         }
     }

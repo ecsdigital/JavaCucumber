@@ -1,6 +1,13 @@
 .idea/
 .gradle/
 build/
+JavaCucumber.iml
+.classpath
+.project
+.settings/
+.vscode/
+bin/
+out/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

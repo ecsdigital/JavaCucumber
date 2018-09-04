@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(  monochrome = true,
         //tags = "@tags",
         features = "src/test/resources/",
-        format = { "pretty","html:build/cucumber-html-reports",
+        plugin = { "pretty","html:build/cucumber-html-reports",
                 "json:build/cucumber-html-reports/cucumber.json" },
         glue = "com.agilitas.example" )
 

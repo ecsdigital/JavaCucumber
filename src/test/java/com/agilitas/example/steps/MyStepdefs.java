@@ -13,7 +13,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Properties;
@@ -48,8 +47,7 @@ public class MyStepdefs implements En {
                     driver = new FirefoxDriver();
                     break;
                 default:
-                    LOGGER.error("Sorry I don't know how to create a driver for your command line argument %s", browser);
-                    throw new NotImplementedException();
+                    throw new UnsupportedOperationException(String.format("Sorry I don't know how to create a driver for your command line argument %s", browser));
             }
         }
     }

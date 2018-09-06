@@ -41,7 +41,9 @@ idea {
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.22'
     compile 'org.slf4j:slf4j-simple:1.7.22'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
+    compile ( 'org.seleniumhq.selenium:selenium-java:3.14.0' ) {
+        exclude group: 'org.seleniumhq.selenium', module: 'selenium-opera-driver'
+    }  
     compile 'io.cucumber:cucumber-java8:3.0.2'
     compile 'io.cucumber:cucumber-junit:3.0.2'
 }

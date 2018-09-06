@@ -6,11 +6,24 @@
  * user guide available at https://docs.gradle.org/3.5/userguide/java_library_plugin.html
  */
 
+ buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.owasp:dependency-check-gradle:3.3.1'
+    }
+}
+
 plugins {
     id "java-library"
     id "idea"
     id "com.commercehub.cucumber-jvm" version "0.14"
 }
+
+apply plugin: 'org.owasp.dependencycheck'
+
+check.dependsOn dependencyCheckAnalyze
 
 // In this section you declare where to find the dependencies of your project
 repositories {

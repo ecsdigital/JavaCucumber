@@ -1,20 +1,23 @@
 package com.agilitas.example.steps;
 
+import com.agilitas.example.GoogleResultsPage;
 import com.agilitas.example.SeleniumUtils;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java8.En;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Properties;
 
 import static java.lang.System.getProperties;
@@ -32,16 +35,17 @@ public class MyStepdefs implements En {
     public void setUpDriver() {
         Properties props = getProperties();
         String browser = System.getProperty("browser");
+        ChromeOptions options = new ChromeOptions();
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
         } else {
             switch (browser) {
                 case "IE":
                     driver = new InternetExplorerDriver();
                     break;
                 case "Chrome":
-                    driver = new ChromeDriver();
+                    driver = new ChromeDriver(options);
                     break;
                 case "Firefox":
                     driver = new FirefoxDriver();
@@ -72,19 +76,8 @@ public class MyStepdefs implements En {
             SeleniumUtils.waitForElementVisible(driver, By.cssSelector("#resultStats"));
         });
         Then("^there should be a result titled '(.*)'$", (String expectedResultTitle) -> {
-            List<WebElement> results = driver.findElements(By.xpath("//h3/a"));
-            LOGGER.info("Found {} search results", results.size());
-            boolean matchingTitle = false;
-            for(WebElement result : results) {
-                String resultTitle = result.getText();
-                LOGGER.info("Looking at {}", resultTitle);
-                if (resultTitle.equalsIgnoreCase(expectedResultTitle)) {
-                    LOGGER.info("{} matches {}", resultTitle, expectedResultTitle);
-                    matchingTitle = true;
-                    break;
-                }
-            }
-            assertTrue("Didn't get a match for "+expectedResultTitle, matchingTitle);
+            GoogleResultsPage resultsPage = PageFactory.initElements(driver, GoogleResultsPage.class);
+            assertTrue("Couldn't find expected result title in results", resultsPage.hasResultTitled( expectedResultTitle));
         });
     }
 }

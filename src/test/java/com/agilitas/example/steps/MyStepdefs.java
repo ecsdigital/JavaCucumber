@@ -1,5 +1,6 @@
 package com.agilitas.example.steps;
 
+import com.agilitas.example.GoogleResultsPage;
 import com.agilitas.example.SeleniumUtils;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -13,10 +14,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory; 
 
-import java.util.List;
+import java.util.Properties;
 
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +33,7 @@ public class MyStepdefs implements En {
     @Before
     public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
-        ChromeOptions options = new ChromeOptions().addArguments("headless", "remote-debugging-port=9222");
+        ChromeOptions options = new ChromeOptions();
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
             driver = new ChromeDriver(options);
@@ -47,8 +49,7 @@ public class MyStepdefs implements En {
                     driver = new FirefoxDriver();
                     break;
                 default:
-                    LOGGER.error("Sorry I don't know how to create a driver for your command line argument %s", browser);
-                    throw new Exception("Not yet implemented");
+                    throw new UnsupportedOperationException(String.format("Sorry I don't know how to create a driver for your command line argument %s", browser));
             }
         }
     }
@@ -73,19 +74,8 @@ public class MyStepdefs implements En {
             SeleniumUtils.waitForElementVisible(driver, By.cssSelector("#resultStats"));
         });
         Then("^there should be a result titled '(.*)'$", (String expectedResultTitle) -> {
-            List<WebElement> results = driver.findElements(By.xpath("//h3/a"));
-            LOGGER.info("Found {} search results", results.size());
-            boolean matchingTitle = false;
-            for(WebElement result : results) {
-                String resultTitle = result.getText();
-                LOGGER.info("Looking at {}", resultTitle);
-                if (resultTitle.equalsIgnoreCase(expectedResultTitle)) {
-                    LOGGER.info("{} matches {}", resultTitle, expectedResultTitle);
-                    matchingTitle = true;
-                    break;
-                }
-            }
-            assertTrue("Didn't get a match for "+expectedResultTitle, matchingTitle);
+            GoogleResultsPage resultsPage = PageFactory.initElements(driver, GoogleResultsPage.class);
+            assertTrue("Couldn't find expected result title in results", resultsPage.hasResultTitled( expectedResultTitle));
         });
     }
 }

@@ -16,11 +16,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory; 
 
 import java.util.Properties;
 
-import static java.lang.System.getProperties;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -32,8 +31,7 @@ public class MyStepdefs implements En {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStepdefs.class);
 
     @Before
-    public void setUpDriver() {
-        Properties props = getProperties();
+    public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
         ChromeOptions options = new ChromeOptions();
         if(browser==null) {

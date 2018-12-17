@@ -18,8 +18,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; 
 
-import java.util.Properties;
-
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -67,7 +65,7 @@ public class MyStepdefs implements En {
         });
 
         When("^I search for '(.*)'$", (String searchTerm) -> {
-            WebElement searchBox = driver.findElement(By.cssSelector("#lst-ib"));
+            WebElement searchBox = driver.findElement(By.cssSelector("input[title='Search']"));
             searchBox.sendKeys(searchTerm);
             searchBox.sendKeys(Keys.ENTER);
             //Wait for the search results to come back

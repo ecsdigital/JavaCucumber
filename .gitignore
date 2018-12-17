@@ -8,6 +8,7 @@ JavaCucumber.iml
 .vscode/
 bin/
 out/
+.DS_STORE
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

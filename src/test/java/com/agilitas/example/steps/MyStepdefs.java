@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
  * Some Cucumber step definitions for the example project
  * Created by Tom on 14/04/2017.
  */
+
 public class MyStepdefs implements En {
     private WebDriver driver;
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStepdefs.class);
@@ -32,6 +33,9 @@ public class MyStepdefs implements En {
     public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
         ChromeOptions options = new ChromeOptions();
+        /*for tests to be run in docker, the absolute path of the EXECUTABLE of the browser needs to be added */
+        /*system.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");*/
+
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
             driver = new ChromeDriver(options);

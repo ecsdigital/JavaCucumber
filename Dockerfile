@@ -13,26 +13,22 @@ RUN apt-get update && apt-get install -yq \
     libxml2-dev=2.9.4+dfsg1-2.2+deb9u2 \
     libxslt-dev \
     libz-dev \
-    xclip=0.12+svn84-4+b1
+    xclip=0.12+svn84-4+b1 \
+    curl xvfb chromium
+
 # GeckoDriver v0.19.1
 RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz" -O /tmp/geckodriver.tgz \
     && tar zxf /tmp/geckodriver.tgz -C /usr/bin/ \
-    && rm /tmp/geckodriver.tgz
-
+    && rm /tmp/geckodriver.tgz 
 # chromeDriver v2.35
 RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
-    && rm /tmp/chromedriver.zip
+    && rm /tmp/chromedriver.zip 
 
-# xvfb - X server display
-#ADD xvfb-chromium /usr/bin/xvfb-chromium
-#RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome \
-# && chmod 777 /usr/bin/xvfb-chromium
+RUN find / -name chromedriver
 
-# create symlinks to chromedriver and geckodriver (to the PATH)
-RUN ln -s /usr/bin/geckodriver /usr/bin/chromium-browser \
-    && chmod 777 /usr/bin/geckodriver \
-    && chmod 777 /usr/bin/chromium-browser
+RUN  chmod 777 /usr/bin/chromedriver \
+      && chmod 777 /usr/bin/geckodriver
 
 FROM gradle:jdk10 as builder
 
@@ -41,9 +37,9 @@ FROM gradle:jdk10 as builder
 #	pip install selenium && \
 #	pip install pyvirtualdisplay
 
+EXPOSE 4444 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --stacktrace --debug
-RUN cat /home/gradle/src/build/reports/tests/test/index.html
+RUN ./gradlew build --stacktrace --debug
 COPY . /app
 WORKDIR /app

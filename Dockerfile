@@ -25,8 +25,6 @@ RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
     && rm /tmp/chromedriver.zip 
 
-RUN find / -name chromedriver
-
 RUN  chmod 777 /usr/bin/chromedriver \
       && chmod 777 /usr/bin/geckodriver
 

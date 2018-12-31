@@ -33,8 +33,7 @@ public class MyStepdefs implements En {
     public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
         ChromeOptions options = new ChromeOptions();
-        /*for tests to be run in docker, the absolute path of the EXECUTABLE of the browser needs to be added */
-        system.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+        options.addArguments("--headless");
 
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");

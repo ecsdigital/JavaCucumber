@@ -2,14 +2,14 @@ package com.agilitas.example;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
 public class GoogleResultsPage {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleResultsPage.class);
+    private static final Logger LOGGER = LogManager.getLogger(GoogleResultsPage.class);
     @FindBy(xpath = "//div[contains(@class,'rc')]//h3")
     public List<WebElement> results;
 

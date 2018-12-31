@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.owasp:dependency-check-gradle:4.0.0'
+        classpath 'org.owasp:dependency-check-gradle:4.0.1'
     }
 }
 
@@ -12,14 +12,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.owasp:dependency-check-gradle:4.0.0'
+        classpath 'org.owasp:dependency-check-gradle:4.0.1'
     }
 }
 
 plugins {
     id "java-library"
     id "idea"
-    id "com.commercehub.cucumber-jvm" version "0.14"
 }
 
 apply plugin: 'org.owasp.dependencycheck'
@@ -33,12 +32,12 @@ repositories {
 
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.22'
-    compile 'org.slf4j:slf4j-simple:1.7.22'
-    compile ( 'org.seleniumhq.selenium:selenium-java:3.14.0' ) {
+    compile 'org.apache.logging.log4j:log4j-api:2.11.1'
+    compile 'org.apache.logging.log4j:log4j-core:2.11.1'
+    compile ( 'org.seleniumhq.selenium:selenium-java:3.141.59' ) {
         exclude group: 'org.seleniumhq.selenium', module: 'selenium-opera-driver'
     }  
-    compile 'io.cucumber:cucumber-java8:3.0.2'
-    compile 'io.cucumber:cucumber-junit:3.0.2'
+    compile 'io.cucumber:cucumber-java8:4.2.0'
+    compile 'io.cucumber:cucumber-junit:4.2.0'
 }
 

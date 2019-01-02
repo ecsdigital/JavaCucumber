@@ -24,8 +24,6 @@ The harness is built using [Gradle](https://gradle.org/), the tests are configur
 
 ` ./gradlew build `
 
-You can also run the tests by executing [RunCukesTest.java](src/test/java/com/agilitas/example/RunCukesTest.java)
-
 ## Outputs
 The primary output is a HTML test report, this can be found in [build/cucumber-hmtl-reports/index.html](build/cucumber-hmtl-reports/index.html)
 

@@ -33,7 +33,7 @@ steps:
 # Publish Test Results to Azure Pipelines/TFS
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: '**/TEST-[!.]+.xml'
+    testResultsFiles: 'build/test-results/test/!TEST-com.agilitas.example.RunCukesTest.xml'
     #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
     #mergeTestResults: false # Optional
     #testRunTitle: # Optional

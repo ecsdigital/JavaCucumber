@@ -14,5 +14,5 @@ variables:
 
 steps:
 - script: |
-  docker build -f Dockerfile -t $(imageName) .
-  docker run -n cucumber $(imageName)
+    docker build -t $(imageName) .
+    docker run -n cucumber $(imageName)

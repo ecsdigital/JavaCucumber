@@ -4,8 +4,8 @@ import com.agilitas.example.GoogleResultsPage;
 import com.agilitas.example.SeleniumUtils;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java8.En;
 
+import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -15,23 +15,25 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory; 
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Some Cucumber step definitions for the example project
  * Created by Tom on 14/04/2017.
  */
+
 public class MyStepdefs implements En {
     private WebDriver driver;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyStepdefs.class);
+    private static final Logger LOGGER = LogManager.getLogger(MyStepdefs.class);
 
     @Before
     public void setUpDriver() throws Exception {
         String browser = System.getProperty("browser");
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+
         if(browser==null) {
             LOGGER.info("No broswer JVM argument passed in, defaulting to Chrome");
             driver = new ChromeDriver(options);

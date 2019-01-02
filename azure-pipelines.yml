@@ -15,4 +15,9 @@ variables:
 steps:
 - script: |
     docker build -t $(imageName) .
-    docker run -n cucumber $(imageName)
+    docker run --name cucumber $(imageName)
+    docker cp cucumber:/home/gradle/src/build .
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'build folder'
+    targetPath: 'build'

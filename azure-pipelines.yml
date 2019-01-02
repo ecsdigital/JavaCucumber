@@ -35,7 +35,7 @@ steps:
   inputs:
     testResultsFiles: |
       '**/TEST-*.xml'
-      '!**/*.RunCukesTest.xml'
+      '!build/test-results/test/TEST-com.agilitas.example.RunCukesTest.xml'
     #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
     #mergeTestResults: false # Optional
     #testRunTitle: # Optional

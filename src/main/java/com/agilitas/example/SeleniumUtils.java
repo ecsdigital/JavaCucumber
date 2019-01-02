@@ -4,15 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 /**
  * Set of helper methods to wrap common functions when working with WebDriver
  */
 public class SeleniumUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SeleniumUtils.class);
+    private static final Logger LOGGER = LogManager.getLogger(SeleniumUtils.class);
 
     /**
      * Method that will see if an element is displayed every half a second for 5 seconds

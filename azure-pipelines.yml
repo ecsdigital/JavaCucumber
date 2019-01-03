@@ -17,7 +17,7 @@ steps:
   displayName: 'Build Docker Image'
 
 - script: |
-    id=$(docker create $(image-name))
+    id=$(docker create $(imageName))
     docker cp $id:/home/gradle/src/build .
     docker rm -v $id
   displayName: 'Copy the test results off the docker container'

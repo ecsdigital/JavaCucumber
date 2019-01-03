@@ -11,6 +11,6 @@ RUN apt-get -qqy update \
 COPY . ${GRADLE_SOURCE}
 WORKDIR ${GRADLE_SOURCE}
 
-RUN ${GRADLE_SOURCE}/gradlew build --info
+RUN ${GRADLE_SOURCE}/gradlew dependencyCheckAnalyze --info
 
 CMD ["./gradlew","build","--info"]

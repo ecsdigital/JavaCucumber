@@ -13,34 +13,29 @@ variables:
   imageName: 'cucumber:$(build.buildId)'
 
 steps:
-- script: |
-    docker build -t $(imageName) .
-    id=$(docker create $(imageName))
-    docker cp $id:/home/gradle/src/build .
-    docker rm -v $id
+- script: docker build -t $(imageName) .
   displayName: 'Build Docker Image'
-  continueOnError: true
 
-- script: |
-    id=$(docker create $(imageName))
-    docker cp $id:/home/gradle/src/build .
-    docker rm -v $id
+- script: docker run --name cucumber $(imageName)
+  displayName: 'Run the Docker Image'
+
+- script: docker cp cucumber:/home/gradle/src/build .
   displayName: 'Copy the test results off the docker container'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Cucumber HTML report'
+  displayName: Publish Cucumber HTML report
   inputs:
     pathtoPublish: 'build/cucumber-html-reports'
     artifactName: cucumber-html-reports
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Dependency Check Reports'
+  displayName: Publish Dependency Check Reports
   inputs:
     pathtoPublish: 'build/reports'
     artifactName: reports
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish JUnit test results'
+  displayName: Publish JUnit test results
   inputs:
     pathtoPublish: 'build/test-results'
     artifactName: test-results
@@ -48,7 +43,7 @@ steps:
 # Publish Test Results
 # Publish Test Results to Azure Pipelines/TFS
 - task: PublishTestResults@2
-  displayName: 'Parse test results'
+  displayName: Parse test results
   inputs:
     testResultsFiles: |
       **/TEST-*.xml

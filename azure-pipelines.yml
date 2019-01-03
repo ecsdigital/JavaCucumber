@@ -21,24 +21,28 @@ steps:
 
 - script: docker cp cucumber:/home/gradle/src/build .
   displayName: 'Copy the test results off the docker container'
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Cucumber HTML report
   inputs:
     pathtoPublish: 'build/cucumber-html-reports'
     artifactName: cucumber-html-reports
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Dependency Check Reports
   inputs:
     pathtoPublish: 'build/reports'
     artifactName: reports
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: Publish JUnit test results
   inputs:
     pathtoPublish: 'build/test-results'
     artifactName: test-results
+  condition: succeededOrFailed()
 
 # Publish Test Results
 # Publish Test Results to Azure Pipelines/TFS
@@ -54,4 +58,5 @@ steps:
     #buildPlatform: # Optional
     #buildConfiguration: # Optional
     #publishRunAttachments: true # Optional
+  condition: succeededOrFailed()
 

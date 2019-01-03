@@ -7,35 +7,35 @@ trigger:
 - master
 
 pool:
-  vmImage: 'Ubuntu-18.04'
+  vmImage: 'Ubuntu-16.04'
 
 variables:
   imageName: 'cucumber:$(build.buildId)'
 
 steps:
-- script: docker build -t $(imageName) .
+- script: 'docker build -t $(imageName) .'
   displayName: 'Build Docker Image'
 
-- script: docker run --name cucumber $(imageName)
+- script: 'docker run --name cucumber $(imageName)'
   displayName: 'Run the Docker Image'
 
-- script: docker cp cucumber:/home/gradle/src/build .
+- script: 'docker cp cucumber:/home/gradle/src/build .'
   displayName: 'Copy the test results off the docker container'
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish Cucumber HTML report
+  displayName: 'Publish Cucumber HTML report'
   inputs:
     pathtoPublish: 'build/cucumber-html-reports'
     artifactName: cucumber-html-reports
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish Dependency Check Reports
+  displayName: 'Publish Dependency Check Reports'
   inputs:
     pathtoPublish: 'build/reports'
     artifactName: reports
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish JUnit test results
+  displayName: 'Publish JUnit test results'
   inputs:
     pathtoPublish: 'build/test-results'
     artifactName: test-results
@@ -43,7 +43,7 @@ steps:
 # Publish Test Results
 # Publish Test Results to Azure Pipelines/TFS
 - task: PublishTestResults@2
-  displayName: Parse test results
+  displayName: 'Parse test results'
   inputs:
     testResultsFiles: |
       **/TEST-*.xml

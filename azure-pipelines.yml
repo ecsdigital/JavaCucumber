@@ -16,10 +16,10 @@ steps:
 - script: 'docker build -t $(imageName) .'
   displayName: 'Build Docker Image'
 
-- script: 'docker run --name cucumber $(imageName)'
-  displayName: 'Run the Docker Image'
-
-- script: 'docker cp cucumber:/home/gradle/src/build .'
+- script: |
+    id=$(docker create $(image-name))
+    docker cp $id:/home/gradle/src/build .
+    docker rm -v $id
   displayName: 'Copy the test results off the docker container'
 
 - task: PublishBuildArtifacts@1

@@ -2,14 +2,12 @@ package com.agilitas.example.steps;
 
 import com.agilitas.example.GoogleResultsPage;
 import com.agilitas.example.SeleniumUtils;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
 import cucumber.api.java8.En;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -54,7 +52,12 @@ public class MyStepdefs implements En {
         }
     }
     @After
-    public void tearDownDriver() {
+    public void tearDownDriver(Scenario scenario) {
+        if (scenario.isFailed()) {
+            // Take a screenshot...
+            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png"); // ... and embed it in the report.
+        }
         if (driver != null) {
             driver.quit();
         }

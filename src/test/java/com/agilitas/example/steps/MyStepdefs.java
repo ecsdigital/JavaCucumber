@@ -66,11 +66,11 @@ public class MyStepdefs implements En {
     public MyStepdefs() {
         Given("^I've opened the google home page$", () -> {
             driver.get("https://www.google.com");
-            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[title='Search']"));
+            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[name='q']"));
         });
 
         When("^I search for '(.*)'$", (String searchTerm) -> {
-            WebElement searchBox = driver.findElement(By.cssSelector("input[title='Search']"));
+            WebElement searchBox = driver.findElement(By.cssSelector("input[name='q']"));
             searchBox.sendKeys(searchTerm);
             searchBox.sendKeys(Keys.ENTER);
             //Wait for the search results to come back

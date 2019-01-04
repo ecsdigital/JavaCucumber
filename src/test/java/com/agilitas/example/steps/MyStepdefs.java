@@ -2,14 +2,12 @@ package com.agilitas.example.steps;
 
 import com.agilitas.example.GoogleResultsPage;
 import com.agilitas.example.SeleniumUtils;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
 import cucumber.api.java8.En;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -54,7 +52,12 @@ public class MyStepdefs implements En {
         }
     }
     @After
-    public void tearDownDriver() {
+    public void tearDownDriver(Scenario scenario) {
+        if (scenario.isFailed()) {
+            // Take a screenshot...
+            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png"); // ... and embed it in the report.
+        }
         if (driver != null) {
             driver.quit();
         }
@@ -63,11 +66,11 @@ public class MyStepdefs implements En {
     public MyStepdefs() {
         Given("^I've opened the google home page$", () -> {
             driver.get("https://www.google.com");
-            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[title='Search']"));
+            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[name='q']"));
         });
 
         When("^I search for '(.*)'$", (String searchTerm) -> {
-            WebElement searchBox = driver.findElement(By.cssSelector("input[title='Search']"));
+            WebElement searchBox = driver.findElement(By.cssSelector("input[name='q']"));
             searchBox.sendKeys(searchTerm);
             searchBox.sendKeys(Keys.ENTER);
             //Wait for the search results to come back

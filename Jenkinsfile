@@ -16,7 +16,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    docker_image.run()
+                    docker_image.withRun() {
+                        sh 'hostname'
+                    }
                     def methods = docker_image.methods.collect { it.name }
                     println methods.each { println it }
                 }

@@ -16,7 +16,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    docker_image.run().wait()
+                    docker_image.inside() {
+                        sh echo "Hello World"
+                    }
                     def methods = docker_image.methods.collect { it.name }
                     println methods.each { println it }
                 }

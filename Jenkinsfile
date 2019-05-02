@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'java --version'
+                sh 'hostname'
                 sh 'ls -al /home/gradle/src/build'
             }
         }

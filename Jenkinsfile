@@ -16,9 +16,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    docker_image.withRun("") {
-                        sh 'hostname'
-                    }
+                    docker_image.run()
                 }
             }
         }

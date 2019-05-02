@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_TAG = "JavaCucumber:build-${env.BUILD_ID}"
+        DOCKER_IMAGE_TAG = "javacucumber:build-${env.BUILD_ID}"
     }
 
     stages {

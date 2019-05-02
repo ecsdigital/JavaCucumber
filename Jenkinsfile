@@ -17,6 +17,8 @@ pipeline {
             steps {
                 script {
                     docker_image.run()
+                    def methods = docker_image.methods.collect { it.name }
+                    println methods.each { println it }
                 }
             }
         }

@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker_image.inside() {
-                        sh echo "Hello World"
+                        sh "echo 'Hello World'"
                     }
                     def methods = docker_image.methods.collect { it.name }
                     println methods.each { println it }

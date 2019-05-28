@@ -68,7 +68,7 @@ public class MyStepdefs implements En {
             //First we need to set the language. When tests run on a non-UK CI server you might
             //Get results in different languages which cause the test to fail
             driver.get("https://www.google.com/preferences?hl=en-GB&fg=1#languages");
-            driver.findElement(By.cssSelector("#langten > div > span.jfk-radiobutton-label")).click();
+            driver.findElement(By.cssSelector("#langten")).click();
             driver.get("https://www.google.com");
             SeleniumUtils.waitForElementVisible(driver, By.cssSelector("input[name='q']"));
         });

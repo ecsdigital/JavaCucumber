@@ -29,13 +29,6 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: Publish Cucumber HTML report
   inputs:
-    pathtoPublish: 'build/cucumber-html-reports'
-    artifactName: cucumber-html-reports
-  condition: succeededOrFailed()
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Dependency Check Reports
-  inputs:
     pathtoPublish: 'build/reports'
     artifactName: reports
   condition: succeededOrFailed()

@@ -80,7 +80,7 @@ public class MyStepdefs implements En {
             searchBox.sendKeys(searchTerm);
             searchBox.sendKeys(Keys.ENTER);
             //Wait for the search results to come back
-            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("#resultStats"));
+            SeleniumUtils.waitForElementVisible(driver, By.cssSelector("#result-stats"));
         });
         Then("^there should be a result titled '(.*)'$", (String expectedResultTitle) -> {
             GoogleResultsPage resultsPage = PageFactory.initElements(driver, GoogleResultsPage.class);
